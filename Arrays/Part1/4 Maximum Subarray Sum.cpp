@@ -17,6 +17,8 @@ long long maxSubarraySum(int arr[], int n)
     
     if(maxi > 0)
         return maxi;
+	/*Note:- here we have returned 0 cause if my maxsum is -ve then in that case
+	we have to consider empty subarray which has sum equal to zero;*/
     return 0;
 
 }

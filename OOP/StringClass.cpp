@@ -2,7 +2,7 @@
 using namespace std;
 typedef long long int lli;
 typedef unsigned long long ull;
-#define USE_CAS 1
+#define USE_CAS 1 //Copy and Swap Idiom...
 
 
 class String
