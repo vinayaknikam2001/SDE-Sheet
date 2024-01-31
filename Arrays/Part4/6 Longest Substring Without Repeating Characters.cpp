@@ -41,7 +41,11 @@ int lengthOfLongestSubstring(string s)
     while (right < n)
     {
         if (subMap[s[right]] != -1)
+        {
+//Below it is necessary to check max of repeating element index and our current left ptr.
+//It's a corner case.
             left = max (subMap[s[right]] + 1, left);
+        }
         
         subMap[s[right]] = right;
 

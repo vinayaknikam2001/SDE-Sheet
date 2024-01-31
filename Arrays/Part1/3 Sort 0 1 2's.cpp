@@ -49,7 +49,9 @@ void sort012(int *arr, int n)
             mid++;
         else {
             swap(arr[mid], arr[hi]);
-            hi--;   
+            hi--;   // Remember on this there is no need to increment mid++;
+                    // Cause after swapping there will be new element in mid
+                    // decrement hi cause yu swapped value 2 to the end...
         }
    }
 }   

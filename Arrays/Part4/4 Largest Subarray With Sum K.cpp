@@ -58,7 +58,12 @@ int LongestSubsetWithZeroSum(vector < int > arr)
             int len = (i - preSumMap[rem]);
             maxLen = max(maxLen, len);
         } 
-        if (preSumMap.find(sum) == preSumMap.end())
+        
+        /*Below test case is quiet important here we can directly insert in map ..
+        but we checked if element already exist cause we want leftmost element in  array.
+        i.e., longest possible subarray...
+        */
+        if (preSumMap.find(sum) == preSumMap.end()) 
         {
             preSumMap[sum] = i;
         }

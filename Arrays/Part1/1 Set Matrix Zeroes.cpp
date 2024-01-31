@@ -1,6 +1,7 @@
 //https://www.codingninjas.com/codestudio/problems/set-matrix-zeros_3846774?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTab=1
 //Self Solved
 
+//Instead of using set we can also use simple array to maintain the count.
 #include <bits/stdc++.h> 
 
 void setZeros(vector<vector<int>> &matrix)

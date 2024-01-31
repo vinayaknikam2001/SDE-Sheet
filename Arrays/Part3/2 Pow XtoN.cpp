@@ -1,7 +1,7 @@
 // LeetCode link = https://leetcode.com/problems/powx-n/description/
 // Referenced 
 
-
+//Take example of 2^5 It will be easy to solve problem that way...
 double myPow(double x, int n) 
 {
 	double ans = 1.0; 
