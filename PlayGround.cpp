@@ -1,36 +1,83 @@
-#include <bits/stdc++.h>
+//{ Driver Code Starts
+#include<bits/stdc++.h>
 using namespace std;
-typedef long long int lli;
-typedef unsigned long long ull;
- 
 
-class Solution {
-public:
-    int maxJump(vector<int>& stones) 
+// } Driver Code Ends
+class Solution
+{
+	public:
+	//Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-          int max1=INT_MIN, max2=INT_MIN;
-          int n = stones.size();
-          vector<bool> vis(n,false);
-          for(int i=2; i<n; i+=2)
-          {
-              int cur = abs(stones[i]-stones[i-2]);
-              max1 = max(cur, max1);
-              if(i != n-1) vis[i] = true;
-          }
-          if(n%2 == 0){
-              max1 = max(max1 ,abs( stones[n-1]-stones[n-2] ));
-          }
-    
-          int pre  = n-1;
-          for(int i=n-2; i>=0; i--)
-          {
-              if(vis[i]) continue;
-              int cur = abs(stones[i]-stones[pre]);
-              max2 = max(cur,max2);
-              pre = i;
-          }   
-          
-          return max(max1, max2);
-
+        vector<int> dist(V, 1e8);
+        //Creating mean-heap...
+        //priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pQue;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pQue;
+        pair<int, int> source;
+        source.first = 0; source.second = S;
+        pQue.push(source);
+        dist[S] = 0;
+        
+        while (!pQue.empty())
+        {
+            auto pairVal = pQue.top();
+            pQue.pop();
+            int node = pairVal.first;
+            int nodeDist = pairVal.second;
+            
+            for (auto vertex : adj[node])
+            {
+                int val = vertex[0]; int vertexDist = vertex[1];
+                if ((nodeDist + vertexDist) < dist[val])
+                {
+                    dist[val] = nodeDist + vertexDist;                    
+                    pQue.push({dist[val], val});
+                }
+            }
+        }
+        
+        return dist;
     }
 };
+
+
+//{ Driver Code Starts.
+
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--) {
+        int V, E;
+        cin >> V >> E;
+        vector<vector<int>> adj[V];
+        int i=0;
+        while (i++<E) {
+            int u, v, w;
+            cin >> u >> v >> w;
+            vector<int> t1,t2;
+            t1.push_back(v);
+            t1.push_back(w);
+            adj[u].push_back(t1);
+            t2.push_back(u);
+            t2.push_back(w);
+            adj[v].push_back(t2);
+        }
+        int S;
+        cin>>S;
+        
+        Solution obj;
+    	vector<int> res = obj.dijkstra(V, adj, S);
+    	
+    	for(int i=0; i<V; i++)
+    	    cout<<res[i]<<" ";
+    	cout<<endl;
+    }
+
+    return 0;
+}
+
+
+// } Driver Code Ends
