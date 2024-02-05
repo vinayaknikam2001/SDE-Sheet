@@ -136,12 +136,12 @@ int main()
     cout<<"Before copy assignment ops "<<str6<<endl;
 
     cout<<"All "<<str2<<str3<<str7;
+    
     /*
     Remeber std::move assignment and constructor are diffrent;
     String s1 = std::move(s2); //This is move constructor..
     String s3;
     s3 = std::move(s4);   //This is move assignment operator
-
     */
     return 0;
 }

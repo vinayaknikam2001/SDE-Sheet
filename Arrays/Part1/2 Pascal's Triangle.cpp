@@ -15,7 +15,8 @@ vector<vector<long long int>> printPascal(int n)
         for(int j=0; j<=i; j++)
         {
             lli val = 0;
-            if(j<i)
+            //This is necessary check
+            if(j<i) 
                 val += v[i-1][j];
             if((j-1) >= 0 && (j-1) < i)
                 val += v[i-1][j-1];
