@@ -9,7 +9,8 @@
         "sstream": "cpp",
         "functional": "cpp",
         "regex": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "iosfwd": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
