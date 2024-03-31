@@ -1,30 +1,44 @@
 #include <bits/stdc++.h>
-#include "PlayGround.h"
 using namespace std;
 typedef long long int lli;
 typedef unsigned long long ull;
 
 
-Singleton* Singleton::getInstance()
+class ThreadClass
 {
-    if (Singleton::pObj == NULL)
+    public:
+    int iVal;
+    void startThread(int iVal)
     {
-        Singleton::singleMutex.lock();
-        if (Singleton::pObj == NULL)
-        {
-            Singleton::pObj = new Singleton();
-        }
-        Singleton::singleMutex.unlock();
+        this->iVal = iVal;
     }
+    static void runThread(int iNum)
+    {
+        int iVal = iNum;
+    }
+};
 
-    return Singleton::pObj;   
+void cFuncThread(int iNum)
+{
+    int iVal = iNum;
 }
     
 int main()
 {
-    Singleton *pObj = Singleton::getInstance();
-    Singleton* pObj2 = Singleton::getInstance();
+    int iVal = 0;
+    auto lambdaFunc = [&](int iNum)
+    {
+        iVal = iNum;
+    };
+    ThreadClass obj;
+    thread t_CFuncPtr(cFuncThread, 5);
+    thread t_LambdaFunc(lambdaFunc, 10);
+    thread t_ClassMethod(&ThreadClass::startThread, &obj, 15);
+    thread t_ClassStaticMethod(&ThreadClass::runThread, 20)
 
-    cout<<"Obj1="<<&pObj<<" Obj2="<<&pObj2<<" EXIT";
+    t_CFuncPtr.join();
+    t_LambdaFunc.join();
+    t_ClassMethod.join();
+    t_ClassStaticMethod.join();
     return 0;
 }
