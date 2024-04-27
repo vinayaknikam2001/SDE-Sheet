@@ -24,7 +24,7 @@ vector<int> nextPermutation(vector<int> &permutation, int n)
         {
             if(permutation[n]>permutation[peak-1])
             {
-                near=n; break;
+                near=n; break; // Find a value which is just greater than premutation[peak-1].
             }
             n--;
         }
