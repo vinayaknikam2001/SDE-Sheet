@@ -1,56 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long int lli;
-typedef unsigned long long ull;
-    
-void setZeros(vector<vector<int>> &matrix)
+
+class Solution
 {
-    int iRow = matrix.size();
-    int iCol = matrix[0].size();
-
-    int arRows[iRow] = {0};
-    int arCols[iCol] = {0};
-
-    for (int i=0; i<iRow; ++i)
-    {
-        for(int j=0; j<iCol; ++j)
-        {
-            if (matrix[i][j]==0)
-            {
-                arRows[i] = 1;
-                arCols[j] = 1;
-            }
-        }
-    }
-
-    for (int i=0; i<iRow; ++i)
-    {
-        if (arRows[i])
-        {
-            for (auto &iVal:matrix[i]) {
-                iVal = 0;
-            }
-        }
-    }
-
-    for (int j=0; j<iCol; ++j)
-    {
-        if (arCols[j])
-        {
-            for (int i=0; i<iRow; ++i)
-            {
-                matrix[i][j] = 0;
-            }
-        }
-    }
-
-
+    public:
     
-}
-    
+    int maxLen(vector<int>&A, int n)
+    {   
+        map<int, int> mp;
+        int iSize = A.size();
+        int iCumSum = 0, iAns = 0, iSubSize = 0;
+        
+        for (int i=0; i<iSize; ++i)
+        {
+            iCumSum += A[i];
+            
+            if (iCumSum == n)
+            {
+                iSubSize = i+1;    
+                iAns = max(iAns, iSubSize);
+            }
+            {
+               //int iRem = iCumSum - n; //If value is not 0;
+               //But as value is == 0 we can directly use iCumSum;
+               auto mpItr = mp.find(iCumSum);
+               if (mpItr != mp.end())
+               {
+                   int iIdx = mpItr->second;
+                   iSubSize = i - iIdx;
+               }
+               iAns = max(iAns, iSubSize);
+            }
+            
+            if (mp.find(iCumSum) == mp.end())
+            {
+                mp[iCumSum] = i;
+            }
+            
+        }
+        
+        return iAns;
+    }
+};
+
+
+//{ Driver Code Starts.
+
 int main()
 {
-    lli T; cin>>T;
     
-    return 0;
+    vector<int> v = {-1,1,-1,1};
+    Solution obj;
+    obj.maxLen(v, 4);
+    return 0; 
 }
+
+

@@ -1,9 +1,11 @@
+#include <bits/stdc++.h>
+using namespace std;
 // LeetCode = https://leetcode.com/problems/merge-sorted-array/
 // Brute-Force = self
 // Optimal = Referenced
 
 /*########################-------Brute-Force---------###############################*/
-void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
+void mergeF(vector<int>& nums1, int m, vector<int>& nums2, int n) 
 {
     vector<int> tmp(m,0);
     int i=0;
@@ -20,7 +22,7 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n)
         }
         else
         {
-            nums1[i] = nums2[iPt2]; ++iPt2
+            nums1[i] = nums2[iPt2]; ++iPt2;
         }
         ++i;
     }
@@ -69,4 +71,19 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n)
         iSeal = (iSeal/2)+(iSeal%2);
     }
     
+}
+
+int main ()
+{
+
+    vector<int> v1(4, 0);
+    v1[0] = 4;
+    vector<int> v2 = {1,2,3};
+    merge(v1, 1, v2, 3);
+
+    for (auto i:v1)
+    {
+        cout<<i<<" ";
+    }
+    return 0;
 }
