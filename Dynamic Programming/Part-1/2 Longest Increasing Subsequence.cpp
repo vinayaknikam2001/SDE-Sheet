@@ -7,23 +7,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int func(int idx, int arr[], int prev, vector<vector<int>> &dp, int siz)
-{
-    if(idx == siz)
-        return 0;
-    if(dp[idx][prev+1] != INT_MIN)
-        return dp[idx][prev+1];
+class Solution {
+public:
 
-    int pik=0, nPik=0;
-    if(prev == -1 || arr[idx] > arr[prev])
-        pik = 1 + func(idx+1, arr, idx, dp, siz);
-    nPik = 0 + func(idx+1, arr, prev, dp, siz);
+    int func(int i, int iPrev, int iSize, vector<int> &nums, vector<vector<int>>& dp)
+    {
+        if (i >= iSize)
+        {
+            return 0;
+        }
+        //While returning also we are using iPrev+1 to handle case of -1;
+        if (dp[i][iPrev+1] != INT_MIN)
+        {
+            return dp[i][iPrev+1];
+        }
 
-    return dp[idx][prev+1] = max(pik, nPik);
-}
+        int iPik = 0, iNPik = 0;
 
-int longestIncreasingSubsequence(int arr[], int n)
-{
-    vector<vector<int>> dp(n+1, vector<int>(n+1, INT_MIN));
-    return func(0, arr, -1, dp, n);
-}
+        if (iPrev == -1 || nums[iPrev] < nums[i])
+        {
+            iPik = 1 + func(i+1, i, iSize, nums, dp);
+        }
+        iNPik = 0 + func(i+1, iPrev, iSize, nums, dp);
+
+        //While storing in DP array we will be using iPrev+1 to handle case on -1;
+        return dp[i][iPrev+1] = max(iPik, iNPik);
+    }
+
+    int lengthOfLIS(vector<int>& nums) 
+    {
+        int iSize = nums.size();
+        // Note Added iSize+1 because in DP array we are storing iPrev+1 to avoid -1 index;
+        vector<vector<int>> dp(iSize+1, vector<int>(iSize+1, INT_MIN));
+        return func(0, -1, iSize, nums, dp);
+    }
+};

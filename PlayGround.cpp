@@ -1,58 +1,65 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution
-{
-    public:
-    
-    int maxLen(vector<int>&A, int n)
-    {   
-        map<int, int> mp;
-        int iSize = A.size();
-        int iCumSum = 0, iAns = 0, iSubSize = 0;
-        
+#define MIN_INT_32 2e31
+#define MAX_INT_32 2147483648-1
+class Solution {
+public:
+    int myAtoi(string s) 
+    {
+        /*
+        1> Ignore spaces.
+        2> OnceNoStarted After that ignore any invalid character.
+        3>
+        */            
+        int iSize = s.size();
+        bool bNumStart = false, bZeroEnd = false;
+        short iSign = 1;
+        long long int iDecimalPlace = 10, iNumber = 0;
+
         for (int i=0; i<iSize; ++i)
-        {
-            iCumSum += A[i];
-            
-            if (iCumSum == n)
+        {            
+            if (s[i] == ' ' && (!bNumStart)) 
             {
-                iSubSize = i+1;    
-                iAns = max(iAns, iSubSize);
-            }
-            {
-               //int iRem = iCumSum - n; //If value is not 0;
-               //But as value is == 0 we can directly use iCumSum;
-               auto mpItr = mp.find(iCumSum);
-               if (mpItr != mp.end())
-               {
-                   int iIdx = mpItr->second;
-                   iSubSize = i - iIdx;
-               }
-               iAns = max(iAns, iSubSize);
+                continue;
             }
             
-            if (mp.find(iCumSum) == mp.end())
+            if (s[i] == '+' || s[i] == '-') 
             {
-                mp[iCumSum] = i;
+                if (bNumStart) {
+                    break;
+                }
+                iSign = (s[i]=='-') ? -1 : 1;
+                continue;
             }
-            
+
+            short iDiff = s[i] - '0';
+            if (iDiff > 9 || iDiff < 0)
+            {
+                break;
+            }
+           
+            bZeroEnd = (iDiff != 0) ? true : bZeroEnd;
+            bNumStart = true;
+            iNumber = (long long int)((iNumber * iDecimalPlace) + iDiff);
+
+            // if (bZeroEnd) {
+            //     iDecimalPlace *= 10;
+            // }
         }
-        
-        return iAns;
+
+        iNumber *= iSign;
+        iNumber  = (iNumber < MIN_INT_32) ? MIN_INT_32 : iNumber;
+        iNumber  = (iNumber > MAX_INT_32) ? MAX_INT_32 : iNumber;
+        return iNumber;
     }
 };
 
-
-//{ Driver Code Starts.
-
-int main()
+int main ()
 {
-    
-    vector<int> v = {-1,1,-1,1};
     Solution obj;
-    obj.maxLen(v, 4);
-    return 0; 
+    
+    int iVal = (int)ceil(MIN_INT_32);
+    cout<<iVal;
+    return 0;
 }
-
-
