@@ -1,80 +1,53 @@
 #include <bits/stdc++.h>
-#include <mutex>
 using namespace std;
 typedef long long int lli;
 typedef unsigned long long ull;
 
-pthread_mutex_t mtxBank;
-pthread_mutex_init(&mtxBank);
-
-class BANK
-{
-private:
-    int iBalanceAmt;
-    //std::mutex mtxBank;
-    //std::condition_variable cvBalance;
-
-public:
-    BANK():iBalanceAmt{1000}{}
-
-    void addMoney(unsigned int iAmt)
+    pair<bool,int> fewestCoins(int i, int amount, vector<int> &coins)
     {
-        //std::unique_lock<mutex> uLock(mtxBank);
-        pthread_mutex_lock(&mtxBank);
-        iBalanceAmt += iAmt;
-        cout<<"Rupees "<<iAmt<<" is added to your account"<<endl;
-        checkBalance();
-        pthread_mutex_unlock(&mtxBank);
-        //cvBalance.notify_one();
-    }
+        if (amount == 0) {
+            return {true, 0};
+        }
+        if (i == 0) {
+            bool bFound = (amount % coins[i] == 0);
+            int count = (bFound) ? (amount/coins[i]) : 0;
+            return {bFound, count};
+        }
 
-    bool isBalance()
-    {
-        return (iBalanceAmt > 1000) ? true: false;
-    }
-
-    void withdrawMoney(unsigned int iAmt)
-    {
-        //std::unique_lock<mutex> uLock(mtxBank);
-        pthread_mutex_lock(&mtxBank);
-        auto funcLambda = [&](){return (this->iBalanceAmt > 1000) ? true : false;};
-        //cvBalance.wait(uLock, funcLambda);
+        pair<bool, int> pikAmount = {false, 0}, nPikAmount = {false, 0};
         
-        iBalanceAmt -= iAmt;
-        cout<<"Rupees "<<iAmt<<" is removed from your account"<<endl;
-        checkBalance();
-        pthread_mutex_unlock(&mtxBank);
+        if (amount >= coins[i]) {
+            pikAmount = fewestCoins(i, (amount-coins[i]), coins);
+            if (pikAmount.first) ++pikAmount.second;
+        }
+        nPikAmount = fewestCoins(i-1, amount, coins);
+        if (nPikAmount.first) ++nPikAmount.second;
+
+        if (pikAmount.first && nPikAmount.first) {
+            if (pikAmount.second < nPikAmount.second) return pikAmount;
+            else return nPikAmount;
+        }
+        else if (pikAmount.first) {
+            return pikAmount;
+        }
+        else if (nPikAmount.first) {
+            return nPikAmount;
+        }
+        else {
+            return {false, 0};
+        }
     }
 
-    unsigned int checkBalance()
+    int coinChange(vector<int>& coins, int amount) 
     {
-        cout<<"Current ACC Balance is:"<<iBalanceAmt<<endl;
-        return iBalanceAmt;
-    }
-
-};
-
-/*
-Ideally it is expected that first money should be added then it should be removed.
-If by any chance withdraw money gets called first it will lock the mutex with a unique_lock. Then condtion
-variable will check condition if true then it goes ahead otherwise it will unlock unique_lock() and then
-wait at that line untill notify is called on same condtion variable. Even if notify called untill the
-condition becomes true thread will wait there.
-*/
+        pair<bool, int> Ans = fewestCoins(coins.size()-1, amount, coins);
+        return (Ans.first) ? Ans.second : -1;
+    }    
     
 int main()
-{   
-    BANK objBank;
-    objBank.checkBalance();
-    thread tWithdrawMoney(&BANK::withdrawMoney, &objBank, 500);
-    std::this_thread::sleep_for(std::chrono::seconds(5));
-    thread tAddMoney(&BANK::addMoney, &objBank, 500);
+{
+    vector<int> v = {1,2,5};
+    coinChange(v, 11);
     
-
-    tAddMoney.join();
-    tWithdrawMoney.join();
-    objBank.checkBalance();
-    
-    pthread_mutex_destroy(&mtxBank);
     return 0;
 }
