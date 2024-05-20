@@ -42,3 +42,43 @@ bool subsetSumToK(int n, int k, vector<int> &arr)
     else
         return false;
 }
+
+
+
+
+//LeetCode = https://leetcode.com/problems/partition-equal-subset-sum/
+class Solution {
+public:
+
+    bool isSubsetSum(int i, int target, vector<int>&nums)
+    {
+        if (target == 0) {
+            return true;
+        }
+        if (i < 0) {
+            return false;
+        }
+
+        bool pikSubset = false, nPikSubset = false;
+        if (target >= nums[i]) {
+            int remainVal = target - nums[i];
+            pikSubset = isSubsetSum(i-1, remainVal, nums);
+        }
+        nPikSubset = isSubsetSum(i-1, target, nums);
+
+        return (pikSubset | nPikSubset);
+    }
+
+    bool canPartition(vector<int>& nums)
+    {
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        if (sum&1) {
+            return false;
+        }
+        else {
+            int target = sum/2;
+            int siz = nums.size();
+            return isSubsetSum(siz-1, target, nums);
+        }
+    }
+};
