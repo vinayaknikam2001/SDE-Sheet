@@ -1,5 +1,5 @@
-#include <bits/stdc++.h>
-using namespace std;
+//LeetCode = https://leetcode.com/problems/longest-common-prefix/description/
+//Self
 
 class Solution {
 
@@ -25,9 +25,11 @@ public:
             {
                 if (i < strs[j].size()) {
                     breakLoop = (firstChar != strs[j][i]) ? true : false;
+                    if (breakLoop) break;
                 }
                 else {
-                    breakLoop = true;
+                    breakLoop = true; 
+                    break;
                 }
             }
             if (!breakLoop) {
@@ -39,12 +41,3 @@ public:
         return result;
     }
 };
-
-int main ()
-{
-
-    vector<string> strs = {"aaa", "aa", "aaa"};
-    Solution obj;
-    obj.longestCommonPrefix(strs);
-    return 0;
-}
