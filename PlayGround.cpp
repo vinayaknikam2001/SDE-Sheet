@@ -1,50 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 class Solution {
 
-    void getFirstCharacter(vector<string>& strs, char &ch, int &i)
+    string getRLE(string& s)
     {
-        ch = '\0';
-        if (i < strs[0].size()) {
-            ch = strs[0][i];
+        int numMap[10] = {0};
+        string res = "";
+        for (int i=0; i<s.size(); ++i)
+        {
+            ++numMap[(s[i] - '0')];
         }
+        
+        for (int i=0; i<10; ++i)
+        {
+            if (numMap[i])
+            {
+                res += ('0' + numMap[i]);
+                res += ('0' + i);
+            }
+        }
+        return res;
     }
 public:
-    string longestCommonPrefix(vector<string>& strs) 
+    string countAndSay(int n) 
     {
-        int size = strs.size(), i=0;
-        string result = "";
-        bool breakLoop = false;
-
-        while (!breakLoop)
+        //string res = "";
+        string sNum = "1";
+        for (int i=1; i<=n; ++i)
         {
-            char firstChar;
-            getFirstCharacter(strs, firstChar, i);
-            for (int j=0; j<size; ++j)
-            {
-                if (i < strs[j].size()) {
-                    breakLoop = (firstChar != strs[j][i]) ? true : false;
-                }
-                else {
-                    breakLoop = true;
-                }
-            }
-            if (!breakLoop) {
-                result += firstChar;
-            }
-            ++i;
+            sNum = getRLE(sNum);
         }
-
-        return result;
+        return sNum;
     }
 };
 
-int main ()
+int main () 
 {
-
-    vector<string> strs = {"aaa", "aa", "aaa"};
     Solution obj;
-    obj.longestCommonPrefix(strs);
-    return 0;
+    obj.countAndSay(4);
+    return  0;
 }
