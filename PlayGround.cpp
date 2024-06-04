@@ -1,44 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-
-class Solution {
-
-    string getRLE(string& s)
-    {
-        int numMap[10] = {0};
-        string res = "";
-        for (int i=0; i<s.size(); ++i)
-        {
-            ++numMap[(s[i] - '0')];
-        }
-        
-        for (int i=0; i<10; ++i)
-        {
-            if (numMap[i])
-            {
-                res += ('0' + numMap[i]);
-                res += ('0' + i);
-            }
-        }
-        return res;
-    }
-public:
-    string countAndSay(int n) 
-    {
-        //string res = "";
-        string sNum = "1";
-        for (int i=1; i<=n; ++i)
-        {
-            sNum = getRLE(sNum);
-        }
-        return sNum;
-    }
-};
-
-int main () 
+typedef long long int lli;
+typedef unsigned long long ull;
+    
+    
+int main()
 {
-    Solution obj;
-    obj.countAndSay(4);
-    return  0;
+
+    int iVal = (int)(10e9+7);
+    cout<<iVal;
+
+    return 0;
 }
+
+
+
+ /*int i=start, j=mid+1;
+        // int crntCnt = 0;
+        // while (i <= mid)
+        // {
+        //     while (j <= end && nums[i] > (nums[j] * 2))
+        //     {
+        //         ++j; ++crntCnt;
+        //     }
+        //     cnt += (j - (mid+1)); ++i;
+        // }
+        // return cnt;*/
