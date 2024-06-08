@@ -1,3 +1,4 @@
+/* PWD=fast*/
 /* Creating and deleting a database*/
 create database test;
 drop database test;
