@@ -3,8 +3,10 @@
 create database test;
 drop database test;
 
+
 /*Connecting to a database*/
 postgres=# \c test
+
 
 /*Listing all databases*/
 postgres=# \l
@@ -21,7 +23,6 @@ List of databases
           |                    |            |           | postgres=CTc/postgres
  test      | postgres | UTF8     | libc            | English_India.1252 | English_India.1252 |            |           |
 (4 rows)
-
 
 
 /*Creating a new db table*/
@@ -41,6 +42,11 @@ test=# \d
 --------+--------+-------+----------
  public | person | table | postgres
 (1 row)
+
+/*Displays description of all tables in current database. */
+\dt
+
+
 /*To describe a table. */
 test=# \d person
                          Table "public.person"
@@ -59,18 +65,3 @@ test=# \d person
 
 
 
-
-
-test=# CREATE TABLE person (
-test(# id BIGSERIAL NOT NULL PRIMARY KEY,
-test(# first_name VARCHAR(50) NOT NULL,
-test(# last_name VARCHAR(50) NOT NULL,
-test(# gender VARCHAR(7) NOT NULL,
-test(# date_of_birth DATE NOT NULL,
-test(# email VARCHAR(150));
-CREATE TABLE
-
-
-
-
-\dt

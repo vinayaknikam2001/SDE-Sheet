@@ -1,0 +1,11 @@
+1> This was my first company, here I worked on C++ (MFC & QT) framework.
+2> Most of time spent on some stock exachange requiremetns solving some bugs in application and sending patch.
+3> My major contribution changes were in upload bhavcopy functionality of all exchanges, solving broadcast and order related bugs.
+4> It was a CTCL application I worked on CTCLClient, CTCLManager, ClientCommunicator, NSEBroadcast, NSEInteractive, ETIInteractive (BSE/MCX) etc.
+5> Apart from that my major contribution was in developing Encryption of interactive messages changes in all exachange segment (NSE/BSE/MCX).
+6> For encryption used OpenSSL SSL Sockets programming and also used AES_256_GCM algorithm for symetric encryption and decryption.
+7> Apart from above mentioned things I worked on developing various internal testing tool application.
+8> Which inlcuded GTAP(Greeksoft Trading Access Point) server, NSE PROXY (Windows/Linux), ETI_Proxy (BSE), Dummy Exchange. In these application I implemented changes for SSL socket.
+9> At a time I used to work on four diffrent OS and machines (Windows Server R2(MFC_06_Client), Windows 10 (MFC_19_Client), Linux(Fedora_14), LINUX(CENTOS 8.5 Rocky Linux)).
+10> Also here I started my trading and investment journey
+11> Overall it was a great experience.

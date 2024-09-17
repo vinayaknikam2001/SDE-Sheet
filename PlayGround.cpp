@@ -2,27 +2,31 @@
 using namespace std;
 typedef long long int lli;
 typedef unsigned long long ull;
-    
+
+
+class Singleton
+{
+private:
+
+    Singleton(){}
+    ~Singleton(){}
+public:
+    Singleton(const Singleton &objSingleton) = delete;
+    Singleton operator=(const Singleton &objSingleton) = delete;
+
+    static Singleton& getInstance() 
+    {
+        static Singleton objSingleton;
+        return objSingleton;
+    }
+
+};
+
+
     
 int main()
 {
-
-    int iVal = (int)(10e9+7);
-    cout<<iVal;
-
+    Singleton &obj = Singleton::getInstance();
+    cout<<"Success!";
     return 0;
 }
-
-
-
- /*int i=start, j=mid+1;
-        // int crntCnt = 0;
-        // while (i <= mid)
-        // {
-        //     while (j <= end && nums[i] > (nums[j] * 2))
-        //     {
-        //         ++j; ++crntCnt;
-        //     }
-        //     cnt += (j - (mid+1)); ++i;
-        // }
-        // return cnt;*/

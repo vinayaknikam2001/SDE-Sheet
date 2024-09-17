@@ -19,6 +19,26 @@ Singleton* Singleton::getInstance()
 
     return Singleton::pObj;   
 }
+
+
+//This is also an example of thread safe singleton design pattern. IF compiler version in C++11 and later.
+class Singleton
+{
+private:
+
+    Singleton(){}
+    ~Singleton(){}
+public:
+    Singleton(const Singleton &objSingleton) = delete;
+    Singleton operator=(const Singleton &objSingleton) = delete;
+
+    static Singleton& getInstance() 
+    {
+        static Singleton objSingleton;//In C++ 11 and later local static variable creation is thread safe.
+        return objSingleton;
+    }
+
+};
     
 int main()
 {

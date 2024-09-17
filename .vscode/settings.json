@@ -11,7 +11,8 @@
         "regex": "cpp",
         "typeinfo": "cpp",
         "iosfwd": "cpp",
-        "condition_variable": "cpp"
+        "condition_variable": "cpp",
+        "iostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
