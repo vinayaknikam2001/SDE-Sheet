@@ -39,3 +39,47 @@ public:
         return ans;
     }
 };
+
+
+
+//Revised C++ solution.
+class Solution {
+public:
+    void addWord(string &str, stack<char>&stkWord)
+    {
+        bool bIsWord = !stkWord.empty();
+        while (!stkWord.empty())
+        {
+            char c = stkWord.top();
+            str += c;
+            stkWord.pop();
+        }
+        if (bIsWord) {
+            str += ' ';
+        }
+    }
+
+    string reverseWords(string s) 
+    {
+        string res = "";
+        stack<char> stkWord;
+        int iSize = s.size();
+
+        for (int i=iSize-1; i>=0; --i)
+        {
+            if (s[i] == ' ') 
+            {
+                addWord(res, stkWord);
+                continue;
+            }
+            stkWord.push(s[i]);
+        }
+        addWord(res, stkWord);
+        if (res[res.size()-1] == ' ')
+        {
+            res.pop_back();
+        }
+
+        return res;
+    }
+};
