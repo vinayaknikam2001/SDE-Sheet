@@ -1,27 +1,33 @@
 // https://www.codingninjas.com/codestudio/problems/minimum-path-sum_985349?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTab=0
 // Self Solved
 #include <bits/stdc++.h>
+typedef unsigned long long ull;
 
-int func(int idx1, int idx2, vector<vector<int>> &grid, int m, int n, vector<vector<int>> &dp)
+ull calcMin(vector<vector<int>> &grid, int i, int j, vector<vector<ull>> &dp)
 {
-    if(idx1 == (m-1) && idx2 == (n-1))
-        return grid[idx1][idx2];
-    if(dp[idx1][idx2] != -1e7)
-        return dp[idx1][idx2];
+    if (0==i && 0==j)
+    {
+        return grid[i][j];
+    }
+    if (i < 0 || j < 0)
+    {
+        return INT_MAX;
+    }
+    if (INT_MIN != dp[i][j]) 
+    {
+        return dp[i][j];
+    }
 
-    int path1 = INT_MAX, path2 = INT_MAX;
+    ull leftSum = INT_MAX, upSum = INT_MAX;
+    leftSum = (ull)grid[i][j] + calcMin(grid, i, j-1, dp);
+    upSum = (ull)grid[i][j] + calcMin(grid, i-1, j, dp);
 
-    if(idx1 < (m-1))
-        path1 = grid[idx1][idx2] + func(idx1+1, idx2, grid, m, n, dp);
-    if(idx2 < (n-1))
-        path2 = grid[idx1][idx2] + func(idx1, idx2+1, grid, m, n, dp);
-    
-    return dp[idx1][idx2] = min(path1, path2);
+    return dp[i][j] = min(leftSum, upSum);
 }
 
 int minSumPath(vector<vector<int>> &grid) 
 {
-    int m = grid.size(), n = grid[0].size();
-    vector<vector<int>> dp(m, vector<int>(n, -1e7));
-    return func(0, 0, grid, m, n, dp);
+    int iRows = grid.size(), iCols = grid[0].size();
+    vector<vector<ull>> dp(iRows, vector<ull>(iCols, INT_MIN));
+    return calcMin(grid, iRows-1, iCols-1, dp);
 }

@@ -6,7 +6,8 @@ typedef unsigned long long ull;
     
 int main()
 {
-    string s = "ABC";
-    cout<<s.back();
+    int a[3] = {1,2,3};
+    for (auto i:a)
+        cout<<" "<<i;
     return 0;
 }
