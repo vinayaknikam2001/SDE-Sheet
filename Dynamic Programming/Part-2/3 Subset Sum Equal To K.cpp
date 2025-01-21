@@ -13,36 +13,33 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long int lli;
 
-short func(int i, int tar,  vector<int> &arr, vector<vector<short>> &dp)
+short isSubsetK(int i, int iVal, vector<int> &lst, vector<vector<short>>& dp)
 {
-    
-    if(tar == 0)
-        return true;
+    if (0 == iVal) return true;
+    if (i < 0)
+    {
+        return false;
+    }
+    if (-1 != dp[i][iVal])
+    {
+        return dp[i][iVal];
+    }
 
-    if(i<=0)
-        return (arr[0]==tar);
+    bool bPik = false, bNPik = false;
+    bNPik |= isSubsetK(i-1, iVal, lst, dp);
+    if (lst[i] <= iVal)
+    {
+        bPik |= isSubsetK(i-1, iVal-lst[i], lst, dp);
+    }
 
-    if(dp[i][tar] != -1)
-        return dp[i][tar];
-
-    bool pik=0, nPik=0;
-    nPik = func(i-1, tar, arr, dp);
-    if(arr[i] <= tar)
-        pik = func(i-1, tar-arr[i], arr, dp);
-    
-    return dp[i][tar] = (pik|nPik) ? 1:0;
+    return dp[i][iVal] = (bPik | bNPik);
 }
 
 bool subsetSumToK(int n, int k, vector<int> &arr) 
 {
     vector<vector<short>> dp(n, vector<short>(k+1, -1));
-    short res = func(n-1, k, arr, dp);
-    if(res == 1)
-        return true;
-    else
-        return false;
+    return (1 == isSubsetK(n-1, k, arr, dp)) ? true : false;
 }
-
 
 
 
