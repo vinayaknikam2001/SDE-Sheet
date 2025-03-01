@@ -30,7 +30,7 @@ it inside a queue*/
                 if (!bVisited[vertex])
                 {
 /* Here we had very curcial learning point. Mark that element as visited the moment u push inside 
-a queue ...otherwise problem will be faced.*/
+a queue ...otherwise problem will be faced. Because it's possible that you push same element twice in a queue.*/
                     q.push(vertex);
                     bVisited[vertex] = true;
                 }

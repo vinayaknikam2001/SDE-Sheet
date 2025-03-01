@@ -1,3 +1,2 @@
 
-    float fActualFuel;
-public:
+    // obj.Add(f1, f1, f1);
