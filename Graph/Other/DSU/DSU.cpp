@@ -3,6 +3,17 @@ using namespace std;
 typedef long long int lli;
 typedef unsigned long long ull;
 
+/*
+DSU:
+It is particularly useful in dynamic connectivity problems, where edges are added at runtime, 
+and you need to efficiently check if two nodes are connected.
+
+Important !: 
+Graph Edge Deletion-> Standard Disjoint Set does NOT support edge deletion efficiently. 
+You’d need other approaches like rollback techniques or dynamic 
+connectivity data structures (e.g., Link/Cut Trees).
+*/
+
 class DSU
 {
     private:
@@ -30,6 +41,14 @@ class DSU
         return vParent[iNode] = findUParent(vParent[iNode]);
     }
 
+    /*
+    1> Take ultimate parent of both nodes check if it's equal then return else goto step 2.
+    2> If there ultimate parent's are not equal then, check if rank of node1's ultimate parent is strictly lesser than node2's 
+       ultimate parent if true then make (attach) node1's ultimate parent to node2's ultimate parent.
+    3> In step 3 do the opposite of step 2.
+    4> Step 4 if both have same rank then make(attach) node2's ultimate parent to node1's ultimate
+       parent and increase the rank of node1's ultimate parent. 
+    */
     void unionByRank(int iNode1, int iNode2)
     {
         int iUParent1 = findUParent(iNode1);
@@ -53,6 +72,13 @@ class DSU
         cout<<"\n";
     }
 
+    /*
+    1> Take ultimate parent of both nodes check if it's equal then return else goto step 2.
+    2> If ultimate parent's are not equal then we check if vSize of node1's ultimate parent is lesser then node2's ultimate
+       parent if true then make (attach) node1's ultimate parent to node2's ultimate parent. And increase size of node2's ultimate parent
+       by size of node1's ultimate parent.
+    3> In step 3 do the opposite of step 2.
+    */
     void unionBySize(int iNode1, int iNode2)
     {
         int iUParent1 = findUParent(iNode1);
