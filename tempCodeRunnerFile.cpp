@@ -1,1 +1,0 @@
-return vParent[iNode] = findUParent(vParent[iNode]);
