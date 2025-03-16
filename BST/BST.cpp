@@ -7,6 +7,8 @@ typedef unsigned long long ull;
 Binary Search Tree Properties
 1> No duplicate
 2> Inorder traversal giver sorted array 
+3> For any given node all elemets on the right side of node should be greater 
+and all elements on the left side of that node shoud be smaller.
 */
 
 struct Node
@@ -100,7 +102,16 @@ class BST
         }
         return pNode;
     }
-    // Function to delete a node from BST.
+    /* Process to delete a node from BST.
+       1> Search that element in BST by comparing left & right child.
+       2> Once the element is found there could be 4 possibilities.
+       3> If that element has both child = NULL then it means we are deleting a leaf node. So it's
+       possible to delete that node without violating property of BST.
+       4> If the element has only right child = NULL and valid left child then we can delete the node and return left child.
+       5> If the element has only left child = NULL and valid right child then we can delete the node and return right child.
+       6> In case we have both valid child then we find that node's inorder successor (to maintain property of BST)so we can replace 
+       the element with inorder successor and then delete it's inorder successor and we keep on doing this process until BST is satisfied.
+    */
     Node* deleteNode(Node *root, int iVal) 
     {
         if (!root)
